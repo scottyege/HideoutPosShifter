@@ -74,12 +74,17 @@ namespace Shifting
             }
         }
 
+        static string Help = "path (-+)xShift (-+)yShift";
+
         static void Main(string[] args)
         {
             //args = new string[] { "raw.txt", "+10", "-10" };
 
             if (args.Length < 3)
-                Console.WriteLine("invalid args");
+            {
+                ShowError("invalid args");
+                return;
+            }
 
             string path = args[0];
 
@@ -90,7 +95,7 @@ namespace Shifting
             {
                 if (ParseShit(args[i], out v) == false)
                 {
-                    Console.WriteLine("invalid args");
+                    ShowError("invalid args");
                     return;
                 }
 
@@ -99,7 +104,7 @@ namespace Shifting
 
             if (System.IO.File.Exists(path) == false)
             {
-                Console.WriteLine("invalid file");
+                ShowError("invalid file");
                 return;
             }
 
@@ -148,6 +153,11 @@ namespace Shifting
 
             shift *= sign;
             return true;
+        }
+
+        static void ShowError(string s)
+        {
+            Console.WriteLine(string.Format("{0}\nargs: {1}", s, Help));
         }
     }
 }
